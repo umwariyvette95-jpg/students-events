@@ -527,11 +527,11 @@
   ];
 
   function loadEvents() {
-    const saved = localStorage.getItem('eduevents_data');
+    const saved = localStorage.getItem('school_events_data');
     return saved ? JSON.parse(saved) : DEFAULT_EVENTS;
   }
   function saveEvents() {
-    localStorage.setItem('eduevents_data', JSON.stringify(events));
+    localStorage.setItem('school_events_data', JSON.stringify(events));
   }
 
   let events = loadEvents();
