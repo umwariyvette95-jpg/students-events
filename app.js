@@ -1,11 +1,12 @@
+// Default events
 let events = [
-  { id: 1, title: "AI Bootcamp", category: "Technology", seats: 30, registered: 12, date: "2026-06-10" },
-  { id: 2, title: "Football Trials", category: "Sports", seats: 20, registered: 5, date: "2026-06-15" },
-  { id: 3, title: "Science Fair", category: "Science", seats: 25, registered: 10, date: "2026-06-22" }
+  { id: 1, title: "AI Bootcamp", category: "Technology", seats: 30, registered: 12 },
+  { id: 2, title: "Football Trials", category: "Sports", seats: 20, registered: 5 },
+  { id: 3, title: "Science Fair", category: "Science", seats: 25, registered: 10 }
 ];
 
 
-
+// get element from html
 let container       = document.getElementById("events-container");
 let totalEvents     = document.getElementById("stat-total");
 let totalRegistered = document.getElementById("stat-registered");
@@ -14,14 +15,13 @@ let form            = document.getElementById("add-event-form");
 let searchInput     = document.getElementById("search-input");
 
 
-
+// Save to localStorage
 function saveToLocalStorage() {
   localStorage.setItem("events", JSON.stringify(events));
 }
 
 
-
-
+// Display events
 function showEvents(list = events) {
 
   container.innerHTML = "";
@@ -29,6 +29,7 @@ function showEvents(list = events) {
   for (let i = 0; i < list.length; i++) {
 
     let event = list[i];
+
     let remaining = event.seats - event.registered;
     let percent = Math.round((event.registered / event.seats) * 100);
 
@@ -42,9 +43,7 @@ function showEvents(list = events) {
         </span>
       </div>
 
-      <h2 class="text-xl font-extrabold mb-1">${event.title}</h2>
-
-      <p class="text-xs text-gray-400 font-semibold mb-3">📅 ${event.date || "Date not set"}</p>
+      <h2 class="text-xl font-extrabold mb-3">${event.title}</h2>
 
       <div class="w-full bg-gray-100 rounded-full h-2 mb-1 overflow-hidden">
         <div class="h-2 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500"
@@ -90,7 +89,7 @@ function showEvents(list = events) {
 }
 
 
-
+// Register event
 function register(id) {
   for (let i = 0; i < events.length; i++) {
     if (events[i].id === id) {
@@ -109,7 +108,7 @@ function register(id) {
 }
 
 
-
+// Cancel registration
 function cancelRegistration(id) {
   for (let i = 0; i < events.length; i++) {
     if (events[i].id === id) {
@@ -126,7 +125,7 @@ function cancelRegistration(id) {
 }
 
 
-
+// Update stats
 function updateStats() {
 
   let registered = 0;
@@ -143,16 +142,15 @@ function updateStats() {
 }
 
 
-
+// Add new event
 form.addEventListener("submit", function(e) {
   e.preventDefault();
 
   let title    = document.getElementById("event-title").value;
   let category = document.getElementById("event-category").value;
   let seats    = document.getElementById("event-seats").value;
-  let date     = document.getElementById("event-date").value;
 
-  if (title === "" || category === "" || seats === "" || date === "") {
+  if (title === "" || category === "" || seats === "") {
     alert("Please fill all fields");
     return;
   }
@@ -162,8 +160,7 @@ form.addEventListener("submit", function(e) {
     title: title,
     category: category,
     seats: Number(seats),
-    registered: 0,
-    date: date
+    registered: 0
   };
 
   events.push(newEvent);
@@ -176,8 +173,7 @@ form.addEventListener("submit", function(e) {
 });
 
 
-
-
+// Search
 searchInput.addEventListener("input", function() {
 
   let searchText = searchInput.value.toLowerCase();
@@ -193,6 +189,5 @@ searchInput.addEventListener("input", function() {
 });
 
 
-
-
+// initial load
 showEvents();
