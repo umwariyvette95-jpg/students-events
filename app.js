@@ -1,17 +1,10 @@
-// ============================================================
-// LOAD EVENTS FROM LOCALSTORAGE OR DEFAULT DATA
-// ============================================================
-
-let events = JSON.parse(localStorage.getItem("events")) || [
+let events = [
   { id: 1, title: "AI Bootcamp", category: "Technology", seats: 30, registered: 12, date: "2026-06-10" },
   { id: 2, title: "Football Trials", category: "Sports", seats: 20, registered: 5, date: "2026-06-15" },
   { id: 3, title: "Science Fair", category: "Science", seats: 25, registered: 10, date: "2026-06-22" }
 ];
 
 
-// ============================================================
-// DOM ELEMENTS
-// ============================================================
 
 let container       = document.getElementById("events-container");
 let totalEvents     = document.getElementById("stat-total");
@@ -21,18 +14,13 @@ let form            = document.getElementById("add-event-form");
 let searchInput     = document.getElementById("search-input");
 
 
-// ============================================================
-// SAVE TO LOCALSTORAGE
-// ============================================================
 
 function saveToLocalStorage() {
   localStorage.setItem("events", JSON.stringify(events));
 }
 
 
-// ============================================================
-// DISPLAY EVENTS
-// ============================================================
+
 
 function showEvents(list = events) {
 
@@ -102,9 +90,6 @@ function showEvents(list = events) {
 }
 
 
-// ============================================================
-// REGISTER EVENT
-// ============================================================
 
 function register(id) {
   for (let i = 0; i < events.length; i++) {
@@ -124,9 +109,6 @@ function register(id) {
 }
 
 
-// ============================================================
-// CANCEL REGISTRATION
-// ============================================================
 
 function cancelRegistration(id) {
   for (let i = 0; i < events.length; i++) {
@@ -144,9 +126,6 @@ function cancelRegistration(id) {
 }
 
 
-// ============================================================
-// UPDATE STATS
-// ============================================================
 
 function updateStats() {
 
@@ -164,9 +143,6 @@ function updateStats() {
 }
 
 
-// ============================================================
-// ADD NEW EVENT
-// ============================================================
 
 form.addEventListener("submit", function(e) {
   e.preventDefault();
@@ -200,9 +176,7 @@ form.addEventListener("submit", function(e) {
 });
 
 
-// ============================================================
-// SEARCH FUNCTION
-// ============================================================
+
 
 searchInput.addEventListener("input", function() {
 
@@ -219,8 +193,6 @@ searchInput.addEventListener("input", function() {
 });
 
 
-// ============================================================
-// INITIAL LOAD
-// ============================================================
+
 
 showEvents();
