@@ -3,705 +3,154 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>School Events – Student Registration Dashboard</title>
+  <title>School Events Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --cream:   #faf7f2;
-      --warm:    #f2ece0;
-      --card:    #ffffff;
-      --ink:     #1c1917;
-      --ink2:    #44403c;
-      --muted:   #78716c;
-      --line:    #e7e0d5;
-      --orange:  #c2410c;
-      --orange-l:#fff0e8;
-      --blue:    #1d4ed8;
-      --blue-l:  #eff6ff;
-      --green:   #15803d;
-      --green-l: #f0fdf4;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    h1, h2, h3, .serif { font-family: 'Lora', serif; }
-
-    /* ── Navbar ── */
-    nav {
-      background: var(--card);
-      border-bottom: 1px solid var(--line);
-      position: sticky; top: 0; z-index: 50;
-    }
-    .nav-inner {
-      max-width: 1200px; margin: 0 auto;
-      padding: 0 24px;
-      height: 64px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .logo-wrap { display: flex; align-items: center; gap: 12px; }
-    .logo-icon {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: var(--orange);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .logo-title { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600; color: var(--ink); line-height: 1.2; }
-    .logo-sub   { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; }
-    .nav-links  { display: flex; align-items: center; gap: 28px; }
-    .nav-link   { font-size: 0.85rem; font-weight: 500; color: var(--ink2); text-decoration: none; transition: color 0.18s; }
-    .nav-link:hover { color: var(--orange); }
-    .nav-search {
-      background: var(--warm);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 7px 14px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.85rem;
-      color: var(--ink);
-      outline: none;
-      width: 210px;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .nav-search::placeholder { color: var(--muted); }
-    .nav-search:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(194,65,12,0.1); }
-    .hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--ink2); }
-    #mobile-menu { display: none; border-top: 1px solid var(--line); background: var(--card); padding: 16px 24px; }
-    #mobile-menu.open { display: block; }
-    .mobile-links { display: flex; flex-direction: column; gap: 12px; }
-
-    /* ── Hero ── */
-    .hero {
-      background: var(--card);
-      border-bottom: 1px solid var(--line);
-      padding: 72px 24px 64px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 70% 60% at 50% -10%, rgba(194,65,12,0.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--orange-l);
-      color: var(--orange);
-      font-size: 0.75rem; font-weight: 600;
-      padding: 5px 14px; border-radius: 100px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(194,65,12,0.2);
-    }
-    .hero-title {
-      font-family: 'Lora', serif;
-      font-size: clamp(2rem, 5vw, 3.6rem);
-      font-weight: 700;
-      line-height: 1.15;
-      color: var(--ink);
-      max-width: 640px; margin: 0 auto 18px;
-    }
-    .hero-title em { color: var(--orange); font-style: italic; }
-    .hero-desc {
-      font-size: 1rem; color: var(--muted);
-      max-width: 460px; margin: 0 auto 36px;
-      line-height: 1.75;
-    }
-    .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-    .btn-primary {
-      background: var(--orange); color: #fff;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.88rem; font-weight: 600;
-      padding: 11px 24px; border-radius: 9px;
-      border: none; cursor: pointer; text-decoration: none;
-      display: inline-block;
-      transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
-      box-shadow: 0 2px 8px rgba(194,65,12,0.25);
-    }
-    .btn-primary:hover { background: #b43509; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(194,65,12,0.3); }
-    .btn-secondary {
-      background: var(--card); color: var(--ink2);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.88rem; font-weight: 600;
-      padding: 11px 24px; border-radius: 9px;
-      border: 1px solid var(--line); cursor: pointer; text-decoration: none;
-      display: inline-block;
-      transition: background 0.18s, border-color 0.18s;
-    }
-    .btn-secondary:hover { background: var(--warm); border-color: #d6cfc4; }
-
-    /* ── Stats ── */
-    .stats-section {
-      padding: 56px 24px;
-      background: var(--warm);
-      border-bottom: 1px solid var(--line);
-    }
-    .stats-inner { max-width: 1200px; margin: 0 auto; }
-    .section-eyebrow {
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--orange); margin-bottom: 8px;
-    }
-    .section-title {
-      font-family: 'Lora', serif; font-size: 1.7rem; font-weight: 600;
-      color: var(--ink); margin-bottom: 32px;
-    }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 24px;
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .stat-card:hover { box-shadow: 0 6px 24px rgba(28,25,23,0.08); transform: translateY(-2px); }
-    .stat-icon {
-      width: 40px; height: 40px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; margin-bottom: 16px;
-    }
-    .stat-icon.orange { background: var(--orange-l); color: var(--orange); }
-    .stat-icon.blue   { background: var(--blue-l);   color: var(--blue); }
-    .stat-icon.green  { background: var(--green-l);  color: var(--green); }
-    .stat-num  { font-family: 'Lora', serif; font-size: 2.4rem; font-weight: 700; line-height: 1; margin-bottom: 4px; }
-    .stat-label { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
-
-    /* ── Events section ── */
-    .events-section { padding: 56px 24px; }
-    .events-inner { max-width: 1200px; margin: 0 auto; }
-    .events-header {
-      display: flex; flex-wrap: wrap; align-items: flex-end;
-      justify-content: space-between; gap: 12px; margin-bottom: 36px;
-    }
-    .events-count { font-size: 0.82rem; color: var(--muted); }
-    .events-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    /* ── Event card ── */
-    .event-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 22px;
-      transition: box-shadow 0.22s, transform 0.22s;
-      display: flex; flex-direction: column;
-    }
-    .event-card:hover { box-shadow: 0 8px 32px rgba(28,25,23,0.1); transform: translateY(-3px); }
-    .card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
-    .category-badge {
-      font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      padding: 4px 12px; border-radius: 100px;
-    }
-    .full-badge {
-      font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      padding: 4px 10px; border-radius: 100px;
-      background: #fef2f2; color: #991b1b;
-    }
-    .cat-Technology { background: #eff6ff; color: #1d4ed8; }
-    .cat-Health     { background: #f0fdf4; color: #15803d; }
-    .cat-Arts       { background: #fff7ed; color: #c2410c; }
-    .cat-Sports     { background: #fef2f2; color: #b91c1c; }
-    .cat-Science    { background: #faf5ff; color: #7c3aed; }
-    .cat-Business   { background: #f0fdfa; color: #0f766e; }
-    .cat-Other      { background: #f5f5f4; color: #57534e; }
-    .card-title {
-      font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600;
-      color: var(--ink); margin-bottom: 18px; line-height: 1.35;
-    }
-    .seat-bar-wrap { margin-bottom: 18px; }
-    .seat-bar-labels {
-      display: flex; justify-content: space-between;
-      font-size: 0.72rem; color: var(--muted); margin-bottom: 6px;
-    }
-    .seat-bar-bg {
-      height: 7px; border-radius: 100px;
-      background: var(--warm); overflow: hidden;
-    }
-    .seat-bar-fill { height: 100%; border-radius: 100px; transition: width 0.4s ease; }
-    .card-stats {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 8px; margin-bottom: 20px;
-    }
-    .card-stat {
-      background: var(--warm);
-      border-radius: 10px; padding: 10px 8px; text-align: center;
-    }
-    .card-stat-num  { font-family: 'Lora', serif; font-size: 1.3rem; font-weight: 600; line-height: 1; }
-    .card-stat-lbl  { font-size: 0.68rem; color: var(--muted); margin-top: 2px; font-weight: 500; }
-    .card-stat-num.orange { color: var(--orange); }
-    .card-stat-num.blue   { color: var(--blue); }
-    .card-actions { display: flex; gap: 10px; margin-top: auto; }
-    .btn-reg {
-      flex: 1; background: var(--orange); color: #fff;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.82rem; font-weight: 600;
-      padding: 9px 14px; border-radius: 9px;
-      border: none; cursor: pointer;
-      transition: background 0.18s, transform 0.15s;
-    }
-    .btn-reg:hover:not(:disabled) { background: #b43509; transform: scale(1.02); }
-    .btn-reg:disabled { background: #e7e0d5; color: #a8a29e; cursor: not-allowed; }
-    .btn-cxl {
-      flex: 1; background: transparent; color: var(--ink2);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.82rem; font-weight: 600;
-      padding: 9px 14px; border-radius: 9px;
-      border: 1px solid var(--line); cursor: pointer;
-      transition: background 0.18s, border-color 0.18s;
-    }
-    .btn-cxl:hover:not(:disabled) { background: var(--warm); border-color: #d6cfc4; }
-    .btn-cxl:disabled { opacity: 0.4; cursor: not-allowed; }
-
-    /* ── Empty states── */
-    #empty-state {
-      display: none; text-align: center; padding: 80px 24px;
-    }
-    .empty-icon {
-      width: 72px; height: 72px; border-radius: 18px;
-      background: var(--warm); margin: 0 auto 20px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.8rem; color: var(--muted);
-    }
-    .empty-title { font-family: 'Lora', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 8px; }
-    .empty-desc  { font-size: 0.88rem; color: var(--muted); }
-
-    /* ── Form section ── */
-    .form-section {
-      background: var(--ink);
-      padding: 64px 24px;
-      border-top: 1px solid rgba(255,255,255,0.07);
-    }
-    .form-inner { max-width: 600px; margin: 0 auto; }
-    .form-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(250,107,62,0.8); margin-bottom: 8px; }
-    .form-title { font-family: 'Lora', serif; font-size: 1.9rem; font-weight: 600; color: #faf7f2; margin-bottom: 36px; line-height: 1.25; }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .form-field { display: flex; flex-direction: column; gap: 7px; }
-    .form-field.full { grid-column: 1 / -1; }
-    .form-label {
-      font-size: 0.78rem; font-weight: 600;
-      color: rgba(255,255,255,0.5); letter-spacing: 0.03em;
-    }
-    .form-input {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 9px;
-      color: #faf7f2;
-      padding: 11px 14px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.2s, background 0.2s;
-      width: 100%;
-    }
-    .form-input::placeholder { color: rgba(255,255,255,0.25); }
-    .form-input:focus { border-color: rgba(250,107,62,0.7); background: rgba(255,255,255,0.09); }
-    .form-error {
-      font-size: 0.75rem; color: #fca5a5;
-      display: none;
-    }
-    .form-error.visible { display: block; }
-    .btn-submit {
-      width: 100%; background: var(--orange); color: #fff;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.92rem; font-weight: 700;
-      padding: 13px 28px; border-radius: 10px;
-      border: none; cursor: pointer;
-      transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
-      box-shadow: 0 2px 12px rgba(194,65,12,0.4);
-    }
-    .btn-submit:hover { background: #b43509; transform: translateY(-1px); box-shadow: 0 4px 18px rgba(194,65,12,0.45); }
-
-    /* ── Footer ── */
-    footer {
-      background: var(--ink); border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 24px;
-      text-align: center;
-      font-size: 0.78rem; color: rgba(255,255,255,0.25);
-    }
-
-    /* ── Toast ── */
-    #toast {
-      position: fixed; bottom: 24px; right: 24px;
-      background: var(--ink); color: #faf7f2;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.85rem; font-weight: 500;
-      padding: 12px 20px 12px 16px;
-      border-radius: 12px;
-      border-left: 4px solid var(--orange);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      z-index: 9999; opacity: 0; transform: translateY(10px);
-      transition: opacity 0.28s, transform 0.28s;
-      pointer-events: none; max-width: 320px;
-    }
-    #toast.show { opacity: 1; transform: translateY(0); }
-
-    /* ── Animations ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up { animation: fadeUp 0.38s ease forwards; }
-
-    /* ── Responsive ── */
-    @media (max-width: 640px) {
-      .nav-links, .nav-search-wrap { display: none; }
-      .hamburger { display: block; }
-      .form-grid { grid-template-columns: 1fr; }
-    }
+    body { font-family: 'Nunito', sans-serif; }
   </style>
 </head>
-<body>
 
-<!-- ── NAVBAR ── -->
-<nav>
-  <div class="nav-inner">
-    <div class="logo-wrap">
-      <div class="logo-icon">
-        <i class="fa-sharp-duotone fa-light fa-graduation-cap text-white text-xl"
-           style="--fa-primary-color: rgb(31,2,12); --fa-secondary-color: rgb(23,3,10); --fa-secondary-opacity: 1;"></i>
+<body class="bg-slate-100 text-gray-800 min-h-screen">
+
+  <!-- ========================= NAVBAR ========================= -->
+  <nav class="bg-blue-600 sticky top-0 z-10 shadow-md">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center gap-4">
+
+      <div class="text-white text-2xl font-extrabold tracking-tight">
+        🎓 School Events
       </div>
+
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search events…"
+        class="px-4 py-2 rounded-full bg-white/20 text-white placeholder-white/70 outline-none focus:bg-white/30 w-64 text-sm font-semibold"
+      />
+
+    </div>
+  </nav>
+
+
+  <!-- ========================= STATS ========================= -->
+  <section class="max-w-6xl mx-auto mt-9 px-5 grid grid-cols-1 md:grid-cols-3 gap-4">
+
+    <!-- Total Events -->
+    <div class="bg-white rounded-2xl shadow p-6 flex items-center gap-4">
+      <div class="w-13 h-13 bg-blue-100 rounded-xl flex items-center justify-center text-2xl p-3">📅</div>
       <div>
-        <div class="logo-title">Education   Events</div>
-        <div class="logo-sub">Student Dashboard</div>
+        <p class="text-sm text-gray-400 font-semibold mb-1">Total Events</p>
+        <p id="stat-total" class="text-4xl font-extrabold text-blue-600">0</p>
       </div>
     </div>
 
-    <div class="nav-links">
-      <a href="#events"    class="nav-link">Events</a>
-      <a href="#add-event" class="nav-link">Add Event</a>
-      <a href="#stats"     class="nav-link">Stats</a>
-    </div>
-
-    <div class="nav-search-wrap" style="display:flex; align-items:center; gap:10px;">
-      <input type="text" id="search-input" placeholder="Search events…" class="nav-search" />
-    </div>
-
-    <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Menu">
-      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
-    </button>
-  </div>
-
-  <div id="mobile-menu">
-    <div class="mobile-links">
-      <a href="#events"    class="nav-link">Events</a>
-      <a href="#add-event" class="nav-link">Add Event</a>
-      <a href="#stats"     class="nav-link">Stats</a>
-      <input type="text" id="search-input-mobile" placeholder="Search events…" class="nav-search" style="width:100%;" />
-    </div>
-  </div>
-</nav>
-
-<!-- ── HERO ── -->
-<section class="hero">
-  <div class="hero-tag">
-    <i class="fa-light fa-calendar-star"></i>
-    Student Portal · 2026
-  </div>
-  <h1 class="hero-title">
-    Discover &amp; <em>Register</em><br/>for School Events
-  </h1>
-  <p class="hero-desc">
-    Browse upcoming events, secure your seat, and manage your registrations — all in one place, updated in real time.
-  </p>
-  <div class="hero-actions">
-    <a href="#events"    class="btn-primary">Browse events</a>
-    <a href="#add-event" class="btn-secondary">Add new event</a>
-  </div>
-</section>
-
-<!-- ── STATS ── -->
-<section class="stats-section" id="stats">
-  <div class="stats-inner">
-    <p class="section-eyebrow">Dashboard overview</p>
-    <h2 class="section-title">At a Glance</h2>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon orange"><i class="fa-light fa-calendar-days"></i></div>
-        <div id="stat-total" class="stat-num">0</div>
-        <div class="stat-label">Total events</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon blue"><i class="fa-light fa-users"></i></div>
-        <div id="stat-registered" class="stat-num" style="color:var(--orange);">0</div>
-        <div class="stat-label">Students enrolled</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon green"><i class="fa-light fa-chair"></i></div>
-        <div id="stat-seats" class="stat-num" style="color:var(--blue);">0</div>
-        <div class="stat-label">Seats remaining</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── EVENTS ── -->
-<section class="events-section" id="events">
-  <div class="events-inner">
-    <div class="events-header">
+    <!-- Students Registered -->
+    <div class="bg-white rounded-2xl shadow p-6 flex items-center gap-4">
+      <div class="w-13 h-13 bg-indigo-100 rounded-xl flex items-center justify-center text-2xl p-3">👥</div>
       <div>
-        <p class="section-eyebrow">All events</p>
-        <h2 class="section-title" style="margin-bottom:0;">Upcoming &amp; active</h2>
+        <p class="text-sm text-gray-400 font-semibold mb-1">Students Registered</p>
+        <p id="stat-registered" class="text-4xl font-extrabold text-indigo-500">0</p>
       </div>
-      <p id="events-count" class="events-count"></p>
     </div>
 
-    <div id="empty-state">
-      <div class="empty-icon"><i class="fa-light fa-inbox"></i></div>
-      <p class="empty-title">No events found</p>
-      <p class="empty-desc">Try a different search term, or add a new event below.</p>
+    <!-- Seats Remaining -->
+    <div class="bg-white rounded-2xl shadow p-6 flex items-center gap-4">
+      <div class="w-13 h-13 bg-green-100 rounded-xl flex items-center justify-center text-2xl p-3">🪑</div>
+      <div>
+        <p class="text-sm text-gray-400 font-semibold mb-1">Seats Remaining</p>
+        <p id="stat-seats" class="text-4xl font-extrabold text-green-500">0</p>
+      </div>
     </div>
 
-    <div id="events-container" class="events-grid"></div>
-  </div>
-</section>
+  </section>
 
-<!-- ── ADD EVENT FORM ── -->
-<section class="form-section" id="add-event">
-  <div class="form-inner">
-    <p class="form-eyebrow">Admin panel</p>
-    <h2 class="form-title">Add a new event</h2>
 
-    <form id="add-event-form" class="form-grid">
-      <div class="form-field">
-        <label class="form-label" for="event-title">Event title</label>
-        <input type="text" id="event-title" class="form-input" placeholder="e.g. AI Bootcamp" />
-        <p class="form-error" id="err-seats">Please enter a valid seat number (at least 1).</p>
-      </div>
-      <div class="form-field">
-        <label class="form-label" for="event-category">Category</label>
-        <select id="event-category" class="form-input" style="background:#1c1917; cursor:pointer;">
-          <option value=""           style="background:#1c1917;">Select category…</option>
-          <option value="Technology" style="background:#1c1917;">Technology</option>
-          <option value="Health"     style="background:#1c1917;">Health</option>
-          <option value="Arts"       style="background:#1c1917;">Arts</option>
-          <option value="Sports"     style="background:#1c1917;">Sports</option>
-          <option value="Science"    style="background:#1c1917;">Science</option>
-          <option value="Business"   style="background:#1c1917;">Business</option>
-          <option value="Other"      style="background:#1c1917;">Other</option>
-        </select>
-        <p class="form-error" id="err-category">Please select a category.</p>
-      </div>
-      <div class="form-field full">
-        <label class="form-label" for="event-seats">Number of seats</label>
-        <input type="number" id="event-seats" class="form-input" placeholder="e.g. 30" min="1" />
-        <p class="form-error" id="err-seats">Please enter a valid number of seats (at least 1).</p>
-      </div>
-      <div class="form-field full">
-        <button type="submit" class="btn-submit">+ Add event</button>
-      </div>
-    </form>
-  </div>
-</section>
+  <!-- ========================= EVENTS GRID ========================= -->
+  <section class="max-w-6xl mx-auto mt-10 px-5">
 
-<!-- ── FOOTER ── -->
-<footer>
-  School Events · Student Registration Dashboard · Built with HTML, Tailwind CSS &amp; Vanilla JS
-</footer>
+    <h2 class="text-2xl font-extrabold mb-5 tracking-tight">Upcoming Events</h2>
 
-<!-- ── TOAST ── -->
-<div id="toast">Action successful</div>
+    <div
+      id="events-container"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+    ></div>
 
-<script>
-  const DEFAULT_EVENTS = [
-    { id: 1, title: "AI Bootcamp",          category: "Technology", seats: 30, registered: 12 },
-    { id: 2, title: "First Aid Workshop",   category: "Health",     seats: 20, registered: 5  },
-    { id: 3, title: "Drama Club Auditions", category: "Arts",       seats: 15, registered: 15 },
-    { id: 4, title: "Rugby Trials",         category: "Sports",     seats: 25, registered: 8  },
-    { id: 5, title: "Robotics Challenge",   category: "Science",    seats: 18, registered: 3  },
-    { id: 6, title: "Entrepreneurship Day", category: "Business",   seats: 40, registered: 22 },
-  ];
+  </section>
 
-  function loadEvents() {
-    const saved = localStorage.getItem('school_events_data');
-    return saved ? JSON.parse(saved) : DEFAULT_EVENTS;
-  }
-  function saveEvents() {
-    localStorage.setItem('school_events_data', JSON.stringify(events));
-  }
 
-  let events = loadEvents();
-  let nextId  = events.reduce((max, e) => Math.max(max, e.id), 0) + 1;
+  <!-- ========================= ADD EVENT FORM ========================= -->
+  <section class="max-w-2xl mx-auto mt-12 mb-20 px-5">
 
-  function updateStats() {
-    const total      = events.length;
-    const registered = events.reduce((sum, e) => sum + e.registered, 0);
-    const remaining  = events.reduce((sum, e) => sum + (e.seats - e.registered), 0);
-    document.getElementById('stat-total').textContent      = total;
-    document.getElementById('stat-registered').textContent = registered;
-    document.getElementById('stat-seats').textContent      = remaining;
-  }
+    <div class="bg-white rounded-2xl shadow p-8">
 
-  function renderEvents(list) {
-    const container = document.getElementById('events-container');
-    const empty     = document.getElementById('empty-state');
-    const countEl   = document.getElementById('events-count');
+      <h2 class="text-2xl font-extrabold mb-6 tracking-tight">➕ Add New Event</h2>
 
-    container.innerHTML = '';
+      <form id="add-event-form" class="space-y-5">
 
-    if (list.length === 0) {
-      empty.style.display = 'block';
-      countEl.textContent = '';
-      return;
-    }
-    empty.style.display = 'none';
-    countEl.textContent = `Showing ${list.length} event${list.length !== 1 ? 's' : ''}`;
-
-    list.forEach((event, index) => {
-      const remaining = event.seats - event.registered;
-      const percent   = Math.round((event.registered / event.seats) * 100);
-      const full      = remaining === 0;
-      const barColor  = percent < 60 ? '#16a34a' : percent < 85 ? '#d97706' : '#dc2626';
-
-      const card = document.createElement('div');
-      card.className = 'event-card fade-up';
-      card.style.animationDelay = `${index * 55}ms`;
-      card.setAttribute('data-id', event.id);
-
-      card.innerHTML = `
-        <div class="card-top">
-          <span class="category-badge cat-${event.category}">${event.category}</span>
-          ${full ? '<span class="full-badge">Full</span>' : ''}
+        <!-- Title -->
+        <div>
+          <label class="block text-sm font-bold mb-2">Event Title</label>
+          <input
+            type="text"
+            id="event-title"
+            placeholder="Enter title"
+            class="w-full border-2 border-gray-200 focus:border-blue-500 rounded-xl px-4 py-3 outline-none text-sm transition-colors"
+          />
         </div>
-        <h3 class="card-title">${escapeHtml(event.title)}</h3>
-        <div class="seat-bar-wrap">
-          <div class="seat-bar-labels">
-            <span>${percent}% filled</span>
-            <span>${remaining} left</span>
-          </div>
-          <div class="seat-bar-bg">
-            <div class="seat-bar-fill" style="width:${percent}%; background:${barColor};"></div>
-          </div>
+
+        <!-- Category -->
+        <div>
+          <label class="block text-sm font-bold mb-2">Category</label>
+          <select
+            id="event-category"
+            class="w-full border-2 border-gray-200 focus:border-blue-500 rounded-xl px-4 py-3 outline-none text-sm transition-colors"
+          >
+            <option value="">Select Category</option>
+            <option value="Technology">Technology</option>
+            <option value="Sports">Sports</option>
+            <option value="Health">Health</option>
+            <option value="Science">Science</option>
+            <option value="Arts">Arts</option>
+          </select>
         </div>
-        <div class="card-stats">
-          <div class="card-stat">
-            <div class="card-stat-num">${event.seats}</div>
-            <div class="card-stat-lbl">Total seats</div>
-          </div>
-          <div class="card-stat">
-            <div class="card-stat-num orange">${event.registered}</div>
-            <div class="card-stat-lbl">Registered</div>
-          </div>
-          <div class="card-stat">
-            <div class="card-stat-num blue">${remaining}</div>
-            <div class="card-stat-lbl">Available</div>
-          </div>
+
+        <!-- Seats -->
+        <div>
+          <label class="block text-sm font-bold mb-2">Number of Seats</label>
+          <input
+            type="number"
+            id="event-seats"
+            placeholder="Enter seats"
+            class="w-full border-2 border-gray-200 focus:border-blue-500 rounded-xl px-4 py-3 outline-none text-sm transition-colors"
+          />
         </div>
-        <div class="card-actions">
-          <button class="btn-reg" ${full ? 'disabled' : ''} data-action="register" data-id="${event.id}">
-            Register
-          </button>
-          <button class="btn-cxl" ${event.registered === 0 ? 'disabled' : ''} data-action="cancel" data-id="${event.id}">
-            Cancel
-          </button>
+
+        <!-- Date -->
+        <div>
+          <label class="block text-sm font-bold mb-2">Event Date</label>
+          <input
+            type="date"
+            id="event-date"
+            class="w-full border-2 border-gray-200 focus:border-blue-500 rounded-xl px-4 py-3 outline-none text-sm transition-colors"
+          />
         </div>
-      `;
-      container.appendChild(card);
-    });
-  }
 
-  function escapeHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
+        <button
+          type="submit"
+          class="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold px-8 py-3 rounded-xl transition-all"
+        >
+          Add Event
+        </button>
 
-  document.getElementById('events-container').addEventListener('click', function(e) {
-    const btn = e.target.closest('[data-action]');
-    if (!btn) return;
-    const id     = parseInt(btn.getAttribute('data-id'));
-    const action = btn.getAttribute('data-action');
-    const event  = events.find(ev => ev.id === id);
-    if (!event) return;
+      </form>
+    </div>
 
-    if (action === 'register') {
-      if (event.registered < event.seats) {
-        event.registered++;
-        showToast(`You're registered for "${event.title}" 🎉`);
-      } else {
-        showToast('Sorry, this event is fully booked.');
-        return;
-      }
-    }
-    if (action === 'cancel') {
-      if (event.registered > 0) {
-        event.registered--;
-        showToast(`Registration cancelled for "${event.title}".`);
-      } else return;
-    }
+  </section>
 
-    saveEvents();
-    applySearch();
-    updateStats();
-  });
 
-  document.getElementById('add-event-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const titleEl    = document.getElementById('event-title');
-    const categoryEl = document.getElementById('event-category');
-    const seatsEl    = document.getElementById('event-seats');
-    const title    = titleEl.value.trim();
-    const category = categoryEl.value.trim();
-    const seats    = parseInt(seatsEl.value);
+  <!-- External JS -->
+  <script src="app.js"></script>
 
-    clearErrors();
-    let valid = true;
-    if (!title)   { showError('err-title');    valid = false; }
-    if (!category){ showError('err-category'); valid = false; }
-    if (!seatsEl.value || isNaN(seats) || seats < 1) { showError('err-seats'); valid = false; }
-    if (!valid) return;
-
-    events.push({ id: nextId++, title, category, seats, registered: 0 });
-    saveEvents();
-    applySearch();
-    updateStats();
-    this.reset();
-    clearErrors();
-    showToast(`"${title}" has been added!`);
-    document.getElementById('events').scrollIntoView({ behavior: 'smooth' });
-  });
-
-  function showError(id)  { document.getElementById(id).classList.add('visible'); }
-  function clearErrors()  { document.querySelectorAll('.form-error').forEach(el => el.classList.remove('visible')); }
-
-  function applySearch() {
-    const q = (
-      document.getElementById('search-input').value ||
-      document.getElementById('search-input-mobile').value || ''
-    ).toLowerCase().trim();
-    const filtered = q
-      ? events.filter(e => e.title.toLowerCase().includes(q) || e.category.toLowerCase().includes(q))
-      : events;
-    renderEvents(filtered);
-  }
-
-  ['search-input', 'search-input-mobile'].forEach(id => {
-    document.getElementById(id).addEventListener('input', applySearch);
-  });
-
-  let toastTimer;
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
-  }
-
-  renderEvents(events);
-  updateStats();
-</script>
 </body>
 </html>
