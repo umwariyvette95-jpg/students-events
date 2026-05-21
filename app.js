@@ -46,7 +46,7 @@ function showEvents(list = events) {
       <h2 class="text-xl font-extrabold mb-3">${event.title}</h2>
 
       <div class="w-full bg-gray-100 rounded-full h-2 mb-1 overflow-hidden">
-        <div class="h-2 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500"
+        <div class="h-2 rounded-full"
              style="width: ${percent}%"></div>
       </div>
 
