@@ -76,7 +76,7 @@ function showEvents(list = events) {
   updateStats();
 }
 
-// here is where to add registration function
+
 function register(id) {
   for (let i = 0; i < events.length; i++) {
     if (events[i].id === id) {
@@ -92,7 +92,7 @@ function register(id) {
 }
 
 
-// where i will be canceling the registration
+
 function cancelRegistration(id) {
   for (let i = 0; i < events.length; i++) {
     if (events[i].id === id) {
@@ -151,8 +151,6 @@ form.addEventListener("submit", function(e) {
   form.reset();
   alert("Event added!");
 });
-
-
 
 let searchInput = document.getElementById("search-input");
 
